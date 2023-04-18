@@ -25,24 +25,24 @@ func TestValidateEmail(t *testing.T) {
 		Email: "pahoghaosgjdhgaohjlsdfhfgjfgjgfhsjfgjsgfghdfjfdgshfgjfgjfdhsfdhsfgjfsgjfjsgjfsgjssgsdhhdshfsdhsdfsdfhdshdfgdfgjfgjsfgjsfgjfgjfggjgfjdghgfhgdfhdfhdfhdfgsddhdhdfhdffhdfhdfdfgsdgdfhdsfgdsfsdfgdfgsdfgdfddhdfhdsgdfgdfgsdfgdfgdfgdfggsdfgsdfgdfgdgdsfgdfhdfhfhfghdfg@megajon.com",
 	}
 
-	testEmptyEmail, err := ValidateEmail(emptyEmail)
-	if testEmptyEmail == true && err == nil {
-		t.Fatal("email is blank and should not be allowed")
+	err := ValidateEmail(emptyEmail)
+	if err == nil {
+		t.Error("email is blank and should not be allowed")
 	}
 
-	testInvalidEmailFormat, err := ValidateEmail(invalidEmailFormat)
-	if testInvalidEmailFormat == true && err == nil {
-		t.Fatal("invalid email format should not be allowed")
+	err = ValidateEmail(invalidEmailFormat)
+	if err == nil {
+		t.Error("invalid email format should not be allowed")
 	}
 
-	testValidEmail, err := ValidateEmail(validEmail)
-	if testValidEmail != true && err != nil {
-		t.Fatal("email is invalid")
+	err = ValidateEmail(validEmail)
+	if err != nil {
+		t.Error("email is invalid")
 	}
 
-	testLongEmail, err := ValidateEmail(longEmail)
-	if testLongEmail == true && err == nil {
-		t.Fatal("email is too long and should not be allowed")
+	err = ValidateEmail(longEmail)
+	if err == nil {
+		t.Error("email is too long and should not be allowed")
 	}
 
 }
