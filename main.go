@@ -5,12 +5,10 @@ import (
 
 	h "github.com/heroku/go-getting-started/handlers"
 
-	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
-	"github.com/uptrace/bun"
 )
 
-var Database *bun.DB
+// var Database *bun.DB
 
 func main() {
 
@@ -20,15 +18,6 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
-
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.Static("/static", "static")
-
-	router.GET("/", h.GetRoot)
-	router.GET("/emails", h.GetEmails)
-	router.POST("/register", h.RegisterEmail)
-	router.POST("/delete", h.DeleteEmail)
-
+	router := h.SetupRouter()
 	router.Run(":" + port)
 }

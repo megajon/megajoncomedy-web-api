@@ -1,0 +1,20 @@
+
+RegisterEmail
+
+- Validate the email and store it in the database
+  - Create an email object with the input string
+  - Run a validation check on the email object and return a json error message if the email is invalid
+  - Connect to the database and store the email or return an error if there is a problem
+    - log any errors for future reference
+- Retrieve and return the newly created email object from the database
+- Send an email to me if the operation was successful
+
+DeleteEmail
+
+- Validate the email and remove it from the database
+  - Create an email object with the input string
+  - Run a validation check on the email object and return a json error message if the email is invalid
+  - Connect to the database and delete the email or return an error if there is a problem
+    - log any errors for future reference
+- Verify that the email is no longer in the database and return a success message
+- Send an email to me
