@@ -1,4 +1,4 @@
-package helpers
+package src
 
 type Email struct {
 	ID    int64  `bun:",pk,autoincrement"`

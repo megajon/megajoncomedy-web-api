@@ -1,7 +1,9 @@
-package helpers
+package email
 
 import (
 	"fmt"
+
+	s "github.com/heroku/go-getting-started/src"
 
 	//go get -u github.com/aws/aws-sdk-go
 	"github.com/aws/aws-sdk-go/aws"
@@ -19,7 +21,7 @@ const (
 	CharSet   = "UTF-8"
 )
 
-func SendNewSubscriberEmail(subscriberEmail string) OutgoingEmail {
+func SendNewSubscriberEmail(subscriberEmail string) s.OutgoingEmail {
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
 	)
@@ -76,7 +78,7 @@ func SendNewSubscriberEmail(subscriberEmail string) OutgoingEmail {
 
 	fmt.Println("Email Sent to address: " + Recipient)
 	fmt.Println(result)
-	emailObject := OutgoingEmail{
+	emailObject := s.OutgoingEmail{
 		Sender:    Sender,
 		Recipient: subscriberEmail,
 		HtmlBody:  HtmlBody,

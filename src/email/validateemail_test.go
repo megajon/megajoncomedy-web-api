@@ -1,26 +1,28 @@
-package helpers
+package email
 
 import (
 	"testing"
+
+	s "github.com/heroku/go-getting-started/src"
 )
 
 func TestValidateEmail(t *testing.T) {
-	emptyEmail := Email{
+	emptyEmail := s.Email{
 		ID:    1,
 		Email: "",
 	}
 
-	invalidEmailFormat := Email{
+	invalidEmailFormat := s.Email{
 		ID:    2,
 		Email: "j",
 	}
 
-	validEmail := Email{
+	validEmail := s.Email{
 		ID:    3,
 		Email: "jonathan.seubert@megajon.com",
 	}
 
-	longEmail := Email{
+	longEmail := s.Email{
 		ID:    4,
 		Email: "pahoghaosgjdhgaohjlsdfhfgjfgjgfhsjfgjsgfghdfjfdgshfgjfgjfdhsfdhsfgjfsgjfjsgjfsgjssgsdhhdshfsdhsdfsdfhdshdfgdfgjfgjsfgjsfgjfgjfggjgfjdghgfhgdfhdfhdfhdfgsddhdhdfhdffhdfhdfdfgsdgdfhdsfgdsfsdfgdfgsdfgdfddhdfhdsgdfgdfgsdfgdfgdfgdfggsdfgsdfgdfgdgdsfgdfhdfhfhfghdfg@megajon.com",
 	}

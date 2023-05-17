@@ -3,8 +3,7 @@ package main
 import (
 	"log"
 
-	h "github.com/heroku/go-getting-started/handlers"
-
+	g "github.com/heroku/go-getting-started/src/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
@@ -18,6 +17,6 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
-	router := h.SetupRouter()
+	router := g.SetupRouter()
 	router.Run(":" + port)
 }

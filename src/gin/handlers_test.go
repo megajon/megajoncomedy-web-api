@@ -1,4 +1,4 @@
-package handlers
+package gin
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	u "github.com/heroku/go-getting-started/helpers"
+	s "github.com/heroku/go-getting-started/src"
 )
 
 // func TestMain(m *testing.M) {
@@ -30,7 +30,7 @@ func TestRegisterEmail(t *testing.T) {
 	form.Add("email", invalidEmail)
 	req.PostForm = form
 	router.ServeHTTP(test1, req)
-	var invalidResponseObject u.Message
+	var invalidResponseObject s.Message
 	err := json.Unmarshal(test1.Body.Bytes(), &invalidResponseObject)
 	if err != nil {
 		fmt.Println("Unmarshal error: ", err)
@@ -46,7 +46,7 @@ func TestRegisterEmail(t *testing.T) {
 	form.Add("email", duplicateEmail)
 	req.PostForm = form
 	router.ServeHTTP(test2, req)
-	var duplicateResponseObject u.Message
+	var duplicateResponseObject s.Message
 	err = json.Unmarshal(test2.Body.Bytes(), &duplicateResponseObject)
 	if err != nil {
 		fmt.Println("Unmarshal error: ", err)
@@ -62,7 +62,7 @@ func TestRegisterEmail(t *testing.T) {
 	form.Add("email", newEmail)
 	req.PostForm = form
 	router.ServeHTTP(test3, req)
-	var newEmailResponseObject u.Message
+	var newEmailResponseObject s.Message
 	err = json.Unmarshal(test3.Body.Bytes(), &newEmailResponseObject)
 	if err != nil {
 		fmt.Println("Unmarshal error: ", err)
