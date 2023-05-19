@@ -50,7 +50,7 @@ func DeleteEmail(c *gin.Context) {
 	}
 	isEmailValid := e.ValidateEmail(emailInput)
 	if isEmailValid != nil {
-		c.JSON(403, gin.H{"message": "invalid email format"})
+		c.JSON(403, gin.H{"message": "invalid email"})
 		return
 	}
 
