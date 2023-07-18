@@ -9,6 +9,7 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/heroku/x v0.0.55
+	github.com/joho/godotenv v1.5.1
 	github.com/uptrace/bun v1.1.12
 	github.com/uptrace/bun/dialect/pgdialect v1.1.12
 	github.com/uptrace/bun/driver/pgdriver v1.1.12

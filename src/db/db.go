@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"os"
 
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
@@ -10,8 +11,8 @@ import (
 )
 
 func Connect() *bun.DB {
-	dsn := "postgres://zxhymrzk:Efra4FYrgAWrjJHJBrdg2LCM2bwuOOvp@castor.db.elephantsql.com/zxhymrzk"
-
+	// dsn := "postgres://zxhymrzk:Efra4FYrgAWrjJHJBrdg2LCM2bwuOOvp@castor.db.elephantsql.com/zxhymrzk"
+	dsn := os.Getenv("DB_URL")
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 	db := bun.NewDB(sqldb, pgdialect.New())
 
