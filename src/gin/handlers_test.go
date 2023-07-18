@@ -14,8 +14,8 @@ import (
 
 func TestRegisterEmail(t *testing.T) {
 	invalidEmail := "jonathan.seubert"
-	duplicateEmail := "jonathan.seubert@megajon.com"
-	newEmail := "jonathan.seubert3@megajon.com"
+	duplicateEmail := "jonathan.seubert3@megajon.com"
+	newEmail := "finisher1017@gmail.com"
 	form := url.Values{}
 	router := SetupRouter()
 
@@ -70,7 +70,7 @@ func TestRegisterEmail(t *testing.T) {
 func TestDeleteEmail(t *testing.T) {
 	invalidEmail := "jonathan.seubert"
 	nonExistentEmail := "none.existent@megajon.com"
-	newEmail := "jonathan.seubert3@megajon.com"
+	newEmail := "finisher1017@gmail.com"
 	form := url.Values{}
 	router := SetupRouter()
 

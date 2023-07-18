@@ -5,6 +5,7 @@ go 1.20
 
 require (
 	github.com/aws/aws-sdk-go v1.13.10
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/heroku/x v0.0.55

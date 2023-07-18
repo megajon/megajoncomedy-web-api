@@ -18,3 +18,11 @@ type OutgoingEmail struct {
 type Message struct {
 	Message string
 }
+
+type Post struct {
+	ID        int64  `bun:",pk,autoincrement"`
+	Title     string `json:"title" form:"title" validate:"required"`
+	Image     string `json:"image" form:"image" validate:"required,url"`
+	Video     string `json:"video" form:"video" validate:"required,url"`
+	Timestamp string `json:"timestamp"`
+}

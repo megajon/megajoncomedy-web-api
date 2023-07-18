@@ -1,10 +1,18 @@
 package gin
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+)
 
 func SetupRouter() *gin.Engine {
-	router := gin.New()
+	router := gin.Default()
 	router.Use(gin.Logger())
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"}
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
+	router.Use(cors.Default())
+	router.LoadHTMLGlob("templates/*")
 	router.Static("/static", "static")
 
 	router.GET("/", GetRoot)

@@ -13,16 +13,16 @@ import (
 )
 
 const (
-	Sender    = "noreply@megajon.com"
-	Recipient = "noreply@megajon.con"
-	Subject   = "Megajon has a new subscriber."
-	HtmlBody  = `<h1>This is the HTML Body from megajon.com</h1>`
-	TextBody  = "This text body is from megajon.com"
-	CharSet   = "UTF-8"
+	Sender  = "megajon@megajon.com"
+	CharSet = "UTF-8"
 )
 
-func SendNewSubscriberEmail(subscriberEmail string) s.OutgoingEmail {
-	sess, err := session.NewSession(&aws.Config{
+func SendNewSubscriberEmail() s.OutgoingEmail {
+	subject := "Megajon has a new subscriber."
+	htmlBody := `<h1>This is the HTML Body from megajon.com</h1>`
+	textBody := "This text body is from megajon.com"
+
+	sess, _ := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
 	)
 
@@ -32,23 +32,23 @@ func SendNewSubscriberEmail(subscriberEmail string) s.OutgoingEmail {
 		Destination: &ses.Destination{
 			CcAddresses: []*string{},
 			ToAddresses: []*string{
-				aws.String(Recipient),
+				aws.String(Sender),
 			},
 		},
 		Message: &ses.Message{
 			Body: &ses.Body{
 				Html: &ses.Content{
 					Charset: aws.String(CharSet),
-					Data:    aws.String(HtmlBody),
+					Data:    aws.String(htmlBody),
 				},
 				Text: &ses.Content{
 					Charset: aws.String(CharSet),
-					Data:    aws.String(TextBody),
+					Data:    aws.String(textBody),
 				},
 			},
 			Subject: &ses.Content{
 				Charset: aws.String(CharSet),
-				Data:    aws.String(Subject),
+				Data:    aws.String(subject),
 			},
 		},
 		Source: aws.String(Sender),
@@ -76,13 +76,85 @@ func SendNewSubscriberEmail(subscriberEmail string) s.OutgoingEmail {
 		}
 	}
 
-	fmt.Println("Email Sent to address: " + Recipient)
+	fmt.Println("Email Sent to address: " + Sender)
 	fmt.Println(result)
 	emailObject := s.OutgoingEmail{
 		Sender:    Sender,
-		Recipient: subscriberEmail,
-		HtmlBody:  HtmlBody,
-		TextBody:  TextBody,
+		Recipient: Sender,
+		HtmlBody:  htmlBody,
+		TextBody:  textBody,
+		CharSet:   CharSet,
+	}
+	return emailObject
+
+}
+
+func SendWelcomeEmail(newSubscriberEmail string) s.OutgoingEmail {
+	subject := "Welcome to the world of Megajon!"
+	htmlBody := `<h1>This is the HTML Body from megajon.com</h1>`
+	textBody := "This text body is from megajon.com"
+
+	sess, _ := session.NewSession(&aws.Config{
+		Region: aws.String("us-east-1")},
+	)
+
+	svc := ses.New(sess)
+
+	input := &ses.SendEmailInput{
+		Destination: &ses.Destination{
+			CcAddresses: []*string{},
+			ToAddresses: []*string{
+				aws.String(newSubscriberEmail),
+			},
+		},
+		Message: &ses.Message{
+			Body: &ses.Body{
+				Html: &ses.Content{
+					Charset: aws.String(CharSet),
+					Data:    aws.String(htmlBody),
+				},
+				Text: &ses.Content{
+					Charset: aws.String(CharSet),
+					Data:    aws.String(textBody),
+				},
+			},
+			Subject: &ses.Content{
+				Charset: aws.String(CharSet),
+				Data:    aws.String(subject),
+			},
+		},
+		Source: aws.String(Sender),
+	}
+
+	result, err := svc.SendEmail(input)
+
+	// Display error messages if they occur.
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			switch aerr.Code() {
+			case ses.ErrCodeMessageRejected:
+				fmt.Println(ses.ErrCodeMessageRejected, aerr.Error())
+			case ses.ErrCodeMailFromDomainNotVerifiedException:
+				fmt.Println(ses.ErrCodeMailFromDomainNotVerifiedException, aerr.Error())
+			case ses.ErrCodeConfigurationSetDoesNotExistException:
+				fmt.Println(ses.ErrCodeConfigurationSetDoesNotExistException, aerr.Error())
+			default:
+				fmt.Println(aerr.Error())
+			}
+		} else {
+			// Print the error, cast err to awserr.Error to get the Code and
+			// Message from an error.
+			fmt.Println(err.Error())
+		}
+	}
+
+	fmt.Println("Email Sent to address: " + newSubscriberEmail)
+	fmt.Println(result)
+	emailObject := s.OutgoingEmail{
+		Sender:    Sender,
+		Recipient: newSubscriberEmail,
+		HtmlBody:  htmlBody,
+		TextBody:  textBody,
 		CharSet:   CharSet,
 	}
 	return emailObject
