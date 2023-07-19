@@ -12,7 +12,7 @@ import (
 )
 
 func GetRoot(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	c.JSON(403, gin.H{"message": "404 page not found"})
 }
 
 func GetEmails(c *gin.Context) {
