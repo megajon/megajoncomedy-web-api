@@ -12,7 +12,6 @@ func SetupRouter() *gin.Engine {
 	config.AllowOrigins = []string{"*"}
 	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
 	router.Use(cors.Default())
-	router.LoadHTMLGlob("templates/*")
 	router.Static("/static", "static")
 
 	router.GET("/", GetRoot)

@@ -3,15 +3,27 @@ package gin
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
 	s "github.com/heroku/go-getting-started/src"
+	"github.com/joho/godotenv"
 )
 
+func TestMain(m *testing.M) {
+	err := godotenv.Load("../../.env")
+
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	exitVal := m.Run()
+	os.Exit(exitVal)
+}
 func TestRegisterEmail(t *testing.T) {
 	invalidEmail := "jonathan.seubert"
 	duplicateEmail := "jonathan.seubert3@megajon.com"
