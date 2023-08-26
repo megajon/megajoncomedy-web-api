@@ -3,6 +3,7 @@ package gin
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	s "github.com/heroku/go-getting-started/src"
@@ -29,7 +30,7 @@ func GetEmails(c *gin.Context) {
 
 func RegisterEmail(c *gin.Context) {
 	fmt.Printf("email from form: %v", c.PostForm("email"))
-	emailInput := e.CreateEmailObject(c.PostForm("email"))
+	emailInput := e.CreateEmailObject(strings.ToLower(c.PostForm("email")))
 	fmt.Printf("email input: %v", emailInput)
 	if emailInput.Email == "invalid" {
 		fmt.Println("invalid email")
@@ -54,7 +55,7 @@ func RegisterEmail(c *gin.Context) {
 
 func DeleteEmail(c *gin.Context) {
 	emailInput := s.Email{
-		Email: c.PostForm("email"),
+		Email: strings.ToLower(c.PostForm("email")),
 	}
 	fmt.Printf("email input: %v", emailInput)
 	isEmailValid := e.ValidateEmail(emailInput)
