@@ -49,7 +49,7 @@ func RegisterEmail(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{"message": "success"})
 	db.Close()
-	e.SendNewSubscriberEmail()
+	e.SendNewSubscriberEmail(emailInput.Email)
 	e.SendWelcomeEmail(emailInput.Email)
 }
 
@@ -83,6 +83,7 @@ func DeleteEmail(c *gin.Context) {
 			}
 			c.JSON(200, gin.H{"message": "email deleted"})
 			db.Close()
+			e.UnsubscribeEmail(emailInput.Email)
 			return
 		}
 	}
