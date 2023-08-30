@@ -15,7 +15,6 @@ func SetupRouter() *gin.Engine {
 	router.Static("/static", "static")
 
 	router.GET("/", GetRoot)
-	router.GET("/emails", GetEmails)
 	router.POST("/register", RegisterEmail)
 	router.POST("/delete", DeleteEmail)
 

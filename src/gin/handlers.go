@@ -2,7 +2,6 @@ package gin
 
 import (
 	"fmt"
-	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -14,18 +13,6 @@ import (
 
 func GetRoot(c *gin.Context) {
 	c.JSON(403, gin.H{"message": "404 page not found"})
-}
-
-func GetEmails(c *gin.Context) {
-	db := d.Connect()
-	emails := make([]s.Email, 0)
-
-	err := db.NewRaw("SELECT id, email FROM ?", bun.Ident("emails")).Scan(c, &emails)
-	if err != nil {
-		panic(err)
-	}
-	db.Close()
-	c.IndentedJSON(http.StatusOK, emails)
 }
 
 func RegisterEmail(c *gin.Context) {
