@@ -91,8 +91,13 @@ func SendNewSubscriberEmail(newSubscriberEmail string) s.OutgoingEmail {
 
 func SendWelcomeEmail(newSubscriberEmail string) s.OutgoingEmail {
 	subject := "Welcome to the world of Megajon!"
-	htmlBody := `<h1>This is the HTML Body from megajon.com</h1>`
-	textBody := "This text body is from megajon.com"
+	htmlBody := `<h1>Thank you for joining the ranks of Megajon! I hope to keep you entertained
+	as you follow me through my journey through the comedy world and beyond. You'll
+	receive an email whenever I post new content.</h1>
+	<h1>If you wish you can remove yourself from the mailing list anytime by using
+	this <a href='https://megajon.com/unsubscribe'>unsubscribe link</a>. You'll be making a lame choice and will miss all the fun,
+	but Megajon doesn't hold hostages.</h1>`
+	textBody := ""
 
 	sess, _ := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
