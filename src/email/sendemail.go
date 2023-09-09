@@ -234,7 +234,7 @@ func UnsubscribeEmail(unsubscriberEmail string) s.OutgoingEmail {
 		TextBody:  textBody,
 		CharSet:   CharSet,
 	}
-	fmt.Printf("email object: %d", emailObject)
+	fmt.Printf("email object: %x", emailObject)
 	return emailObject
 
 }
